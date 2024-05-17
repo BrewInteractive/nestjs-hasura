@@ -24,6 +24,7 @@ export class HasuraModule {
     return {
       module: HasuraModule,
       global: false,
+      imports: options.imports,
       providers: [
         HasuraService,
         {
