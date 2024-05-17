@@ -1,4 +1,4 @@
 export class HasuraOptions {
   endpoint: string;
-  adminSecret: string;
+  adminSecret?: string;
 }
