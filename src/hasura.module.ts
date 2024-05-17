@@ -30,7 +30,7 @@ export class HasuraModule {
         {
           provide: HasuraOptions,
           useFactory: options.useFactory,
-          inject: options.inject ?? [],
+          inject: options.inject,
         },
       ],
       exports: [HasuraService],
