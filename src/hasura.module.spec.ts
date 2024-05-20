@@ -5,11 +5,11 @@ import { MockFactory } from 'mockingbird';
 import { Test } from '@nestjs/testing';
 
 describe('HasuraModule', () => {
-  const hasuraOptions = MockFactory(HasuraOptionsFixture).one();
+  const hasuraConfig = MockFactory(HasuraOptionsFixture).one();
 
   it('Should be defined (With register method)', async () => {
     const module = await Test.createTestingModule({
-      imports: [HasuraModule.register(hasuraOptions)],
+      imports: [HasuraModule.register(hasuraConfig)],
     }).compile();
 
     const service = module.get<HasuraService>(HasuraService);
@@ -21,7 +21,7 @@ describe('HasuraModule', () => {
       imports: [
         HasuraModule.registerAsync({
           useFactory: () => {
-            return hasuraOptions;
+            return hasuraConfig;
           },
           inject: [],
         }),
@@ -34,7 +34,7 @@ describe('HasuraModule', () => {
 
   it('Should be defined (With forRoot method)', async () => {
     const module = await Test.createTestingModule({
-      imports: [HasuraModule.forRoot(hasuraOptions)],
+      imports: [HasuraModule.forRoot(hasuraConfig)],
     }).compile();
 
     const service = module.get<HasuraService>(HasuraService);
@@ -46,7 +46,7 @@ describe('HasuraModule', () => {
       imports: [
         HasuraModule.forRootAsync({
           useFactory: () => {
-            return hasuraOptions;
+            return hasuraConfig;
           },
           inject: [],
         }),

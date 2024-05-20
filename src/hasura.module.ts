@@ -1,52 +1,52 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { HasuraAsyncOptions, HasuraOptions } from './models';
+import { HasuraAsyncConfig, HasuraConfig } from './models';
 
 import { HasuraService } from './hasura.service';
 
 @Module({})
 export class HasuraModule {
-  static register(options: HasuraOptions): DynamicModule {
+  static register(config: HasuraConfig): DynamicModule {
     return {
       module: HasuraModule,
       global: false,
       providers: [
         HasuraService,
         {
-          provide: HasuraOptions,
-          useValue: options,
+          provide: HasuraConfig,
+          useValue: config,
         },
       ],
       exports: [HasuraService],
     };
   }
 
-  static registerAsync(options: HasuraAsyncOptions): DynamicModule {
+  static registerAsync(config: HasuraAsyncConfig): DynamicModule {
     return {
       module: HasuraModule,
       global: false,
-      imports: options.imports,
+      imports: config.imports,
       providers: [
         HasuraService,
         {
-          provide: HasuraOptions,
-          useFactory: options.useFactory,
-          inject: options.inject,
+          provide: HasuraConfig,
+          useFactory: config.useFactory,
+          inject: config.inject,
         },
       ],
       exports: [HasuraService],
     };
   }
 
-  static forRoot(options: HasuraOptions): DynamicModule {
+  static forRoot(config: HasuraConfig): DynamicModule {
     return {
-      ...this.register(options),
+      ...this.register(config),
       global: true,
     };
   }
 
-  static forRootAsync(options: HasuraAsyncOptions): DynamicModule {
+  static forRootAsync(config: HasuraAsyncConfig): DynamicModule {
     return {
-      ...this.registerAsync(options),
+      ...this.registerAsync(config),
       global: true,
     };
   }
