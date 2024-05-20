@@ -1,1 +1,1 @@
-export * from './hasura-options.fixture';
+export * from './hasura-config.fixture';
