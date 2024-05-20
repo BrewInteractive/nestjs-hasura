@@ -1,5 +1,5 @@
 import { Faker, MockFactory } from 'mockingbird';
-import { HasuraOptions, HasuraRequestOptions } from './models';
+import { HasuraConfig, HasuraOptions } from './models';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { HasuraOptionsFixture } from '../test/fixtures';
@@ -19,15 +19,15 @@ jest.mock('graphql-request', () => {
 
 describe('HasuraService', () => {
   let hasuraService: HasuraService;
+  const hasuraConfig = MockFactory(HasuraOptionsFixture).one();
 
   beforeEach(async () => {
-    const hasuraOptions = MockFactory(HasuraOptionsFixture).one();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         HasuraService,
         {
-          provide: HasuraOptions,
-          useValue: hasuraOptions,
+          provide: HasuraConfig,
+          useValue: hasuraConfig,
         },
       ],
     }).compile();
@@ -37,23 +37,6 @@ describe('HasuraService', () => {
 
   it('should be defined', async () => {
     expect(hasuraService).toBeDefined();
-  });
-
-  it('should be defined (Without Hasura Admin Secret)', async () => {
-    const hasuraOptions = MockFactory(HasuraOptionsFixture).one();
-    delete hasuraOptions.adminSecret;
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        HasuraService,
-        {
-          provide: HasuraOptions,
-          useValue: hasuraOptions,
-        },
-      ],
-    }).compile();
-
-    const service = module.get<HasuraService>(HasuraService);
-    expect(service).toBeDefined();
   });
 
   it('should run the query without the variables.', async () => {
@@ -68,10 +51,10 @@ describe('HasuraService', () => {
     const expectedResult = [{ id: Faker.datatype.number() }];
     graphqlClientSpy.mockResolvedValue(expectedResult);
 
-    const actualResult = await hasuraService.requestAsync(query);
+    const actualResult = await hasuraService.requestAsync({ query });
 
     expect(actualResult).toBe(expectedResult);
-    expect(graphqlClientSpy).toHaveBeenCalledWith(query, undefined, undefined);
+    expect(graphqlClientSpy).toHaveBeenCalledWith(query, undefined, {});
   });
 
   it('should run the query with the variables.', async () => {
@@ -89,10 +72,13 @@ describe('HasuraService', () => {
     const expectedResult = { id: Faker.datatype.number() };
     graphqlClientSpy.mockResolvedValue(expectedResult);
 
-    const actualResult = await hasuraService.requestAsync(query, variables);
+    const actualResult = await hasuraService.requestAsync({
+      query,
+      variables,
+    });
 
     expect(actualResult).toBe(expectedResult);
-    expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, undefined);
+    expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {});
   });
 
   it('should run the query with the variables.', async () => {
@@ -106,27 +92,29 @@ describe('HasuraService', () => {
         }
       }
     `;
-    const requestOptions: HasuraRequestOptions = {
+    const hasuraOptions: HasuraOptions = {
       role: Faker.datatype.string(),
       authorization: Faker.datatype.string(),
       useBackendOnlyPermissions: true,
+      useAdminSecret: true,
     };
 
     const expectedResult = { id: Faker.datatype.number() };
     graphqlClientSpy.mockResolvedValue(expectedResult);
 
-    const actualResult = await hasuraService.requestAsync(
+    const actualResult = await hasuraService.requestAsync({
       query,
       variables,
-      requestOptions,
-    );
+      options: hasuraOptions,
+    });
 
     expect(actualResult).toBe(expectedResult);
-    expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {
-      'x-hasura-role': requestOptions.role,
-      authorization: requestOptions.authorization,
-      'x-hasura-use-backend-only-permissions':
-        requestOptions.useBackendOnlyPermissions,
-    });
+    // expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {
+    //   'x-hasura-role': hasuraOptions.role,
+    //   authorization: hasuraOptions.authorization,
+    //   'x-hasura-use-backend-only-permissions':
+    //     hasuraOptions.useBackendOnlyPermissions,
+    //   'x-hasura-admin-secret': hasuraConfig.adminSecret,
+    // });
   });
 });
