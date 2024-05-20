@@ -109,12 +109,31 @@ describe('HasuraService', () => {
     });
 
     expect(actualResult).toBe(expectedResult);
-    // expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {
-    //   'x-hasura-role': hasuraOptions.role,
-    //   authorization: hasuraOptions.authorization,
-    //   'x-hasura-use-backend-only-permissions':
-    //     hasuraOptions.useBackendOnlyPermissions,
-    //   'x-hasura-admin-secret': hasuraConfig.adminSecret,
-    // });
+    expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {
+      'x-hasura-role': hasuraOptions.role,
+      authorization: hasuraOptions.authorization,
+      'x-hasura-use-backend-only-permissions':
+        hasuraOptions.useBackendOnlyPermissions,
+      'x-hasura-admin-secret': hasuraConfig.adminSecret,
+    });
+  });
+
+  it('should throw error if there is no admin secret ', async () => {
+    Reflect.set(hasuraService, '_adminSecret', undefined);
+    const query = gql`
+      query testQuery {
+        books {
+          id
+        }
+      }
+    `;
+    expect(async () => {
+      await hasuraService.requestAsync({
+        query,
+        options: {
+          useAdminSecret: true,
+        },
+      });
+    }).rejects.toThrow(Error);
   });
 });
