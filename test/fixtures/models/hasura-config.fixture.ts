@@ -1,7 +1,7 @@
 import { HasuraConfig } from '../../../src/models';
 import { Mock } from 'mockingbird';
 
-export class HasuraOptionsFixture extends HasuraConfig {
+export class HasuraConfigFixture extends HasuraConfig {
   @Mock((faker) => faker.internet.url())
   graphqlEndpoint: string;
 

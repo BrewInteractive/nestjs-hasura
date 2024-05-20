@@ -2,7 +2,7 @@ import { Faker, MockFactory } from 'mockingbird';
 import { HasuraConfig, HasuraOptions } from './models';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { HasuraOptionsFixture } from '../test/fixtures';
+import { HasuraConfigFixture } from '../test/fixtures';
 import { HasuraService } from './hasura.service';
 import { gql } from 'graphql-request';
 
@@ -19,7 +19,7 @@ jest.mock('graphql-request', () => {
 
 describe('HasuraService', () => {
   let hasuraService: HasuraService;
-  const hasuraConfig = MockFactory(HasuraOptionsFixture).one();
+  const hasuraConfig = MockFactory(HasuraConfigFixture).one();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({

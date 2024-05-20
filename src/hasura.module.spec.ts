@@ -1,11 +1,11 @@
+import { HasuraConfigFixture } from '../test/fixtures';
 import { HasuraModule } from './hasura.module';
-import { HasuraOptionsFixture } from '../test/fixtures';
 import { HasuraService } from './hasura.service';
 import { MockFactory } from 'mockingbird';
 import { Test } from '@nestjs/testing';
 
 describe('HasuraModule', () => {
-  const hasuraConfig = MockFactory(HasuraOptionsFixture).one();
+  const hasuraConfig = MockFactory(HasuraConfigFixture).one();
 
   it('Should be defined (With register method)', async () => {
     const module = await Test.createTestingModule({
