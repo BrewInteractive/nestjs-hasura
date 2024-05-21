@@ -2,6 +2,7 @@ import { Faker, MockFactory } from 'mockingbird';
 import { HasuraConfig, HasuraOptions } from './models';
 import { Test, TestingModule } from '@nestjs/testing';
 
+import { AdminSecretNotFound } from './error';
 import { HasuraConfigFixture } from '../test/fixtures';
 import { HasuraService } from './hasura.service';
 import { gql } from 'graphql-request';
@@ -134,6 +135,6 @@ describe('HasuraService', () => {
           useAdminSecret: true,
         },
       });
-    }).rejects.toThrow(Error);
+    }).rejects.toThrow(AdminSecretNotFound);
   });
 });

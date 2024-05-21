@@ -6,6 +6,7 @@ import {
   HasuraRequestOptions,
 } from './models';
 
+import { AdminSecretNotFound } from './error';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -67,7 +68,7 @@ export class HasuraService {
   private getAdminSecret(): string {
     if (this._adminSecret) return this._adminSecret;
 
-    throw new Error('There is no admin secret information.');
+    throw new AdminSecretNotFound();
   }
 
   private getOptionsValueByFlag(
