@@ -9,19 +9,18 @@ import {
   ExtendedErrorFixture,
 } from '../../test/fixtures';
 
-import { AdminSecretNotFound } from '../error';
 import { ErrorResponse } from '../dto/error-response.dto';
-import { HttpExceptionFilter } from './hasura-http-exception.filter';
+import { HasuraHttpExceptionFilter } from './hasura-http-exception.filter';
 import { MockFactory } from 'mockingbird';
 import { Response } from 'express';
 
-describe('HttpExceptionFilter', () => {
-  let filter: HttpExceptionFilter;
+describe('HasuraHttpExceptionFilter', () => {
+  let filter: HasuraHttpExceptionFilter;
   let mockArgumentsHost: ArgumentsHost;
   let mockResponse: Response;
 
   beforeEach(() => {
-    filter = new HttpExceptionFilter();
+    filter = new HasuraHttpExceptionFilter();
     mockResponse = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
