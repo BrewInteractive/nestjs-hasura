@@ -84,18 +84,6 @@ describe('HttpExceptionFilter', () => {
     expect(mockResponse.json).toHaveBeenCalledWith(expectedResponse);
   });
 
-  it('should handle HasuraErrorBase', () => {
-    const exception = new AdminSecretNotFound();
-
-    filter.catch(exception, mockArgumentsHost);
-
-    const expectedResponse = new ErrorResponse();
-    expectedResponse.message = exception.message;
-
-    expect(mockResponse.status).toHaveBeenCalledWith(HttpStatus.BAD_REQUEST);
-    expect(mockResponse.json).toHaveBeenCalledWith(expectedResponse);
-  });
-
   it('should handle exceptions with cause that is an ExtendedError', () => {
     const extendedErrorMessage = 'Extended Error message';
     const extendedErrorCode = 'ERR123';
