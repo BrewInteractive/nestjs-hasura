@@ -1,73 +1,44 @@
+<p  align="center">
+<a  href="http://brewww.com/"  target="_blank"><img  src="https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/Brew-Logo-Small.png?raw=true"  width="300"  alt="Brew Logo"  /></a>
+</p>
+
+<h1  align="center">NestJS Hasura Module</h1>
+
+<p align="center">This package was created to facilitate the use of the Hasura GraphQL API in NestJS projects.</p>
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+<a href="https://sonarcloud.io/summary/overall?id=BrewInteractive_nestjs-hasura-module" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=BrewInteractive_nestjs-hasura-module&metric=alert_status"/></a>
+<a href="https://sonarcloud.io/summary/overall?id=BrewInteractive_nestjs-hasura-module" target="_blank"><img src="https://sonarcloud.io/api/project_badges/measure?project=BrewInteractive_nestjs-hasura-module&metric=coverage"/></a>
+<a href="https://www.npmjs.com/package/@brewww/nestjs-hasura-module" target="_blank"><img src="https://img.shields.io/npm/v/@brewww/nestjs-hasura-module.svg" alt="NPM Version" /></a> <a href="https://www.npmjs.com/@brewww/nestjs-hasura-module" target="_blank"><img src="https://img.shields.io/npm/l/@brewww/nestjs-hasura-module.svg" alt="Package License" /></a> <a href="https://www.npmjs.com/@brewww/nestjs-hasura-module" target="_blank"><img src="https://img.shields.io/npm/dm/@brewww/nestjs-hasura-module.svg" alt="NPM Downloads" /></a>
+</p>
+<p align="center">
+<a href="https://www.instagram.com/brew_interactive/" target="_blank"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram" /></a>
+<a href="https://www.linkedin.com/company/brew-interactive/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Linkedin" /></a>
+<a href="https://twitter.com/BrewInteractive" target="_blank"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Purpose
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This package is developed to be used in NestJS projects. The purpose of the module is to use Hasura more easily and effectively in NestJS projects.
 
-## Description
+## Documents
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Local Development Instructions](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/local_development.md)
+  - [Running Tests](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/local_development.md#Test)
+  - [Running Build](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/local_development.md#Build)
+- [Hasura Module Installation](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/installation.md)
+- [Using the Hasura Service](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md)
+  - [Query&Mutation Request](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#querymutation-request)
+    - [Basic Usage](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#basic-usage)
+    - [Running Queries with Variables](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-variables)
+    - [Running Queries with Hasura Options](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-hasura-options)
+    - [Running Queries with Headers](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-headers)
+- [Decorator Uses](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorator_uses.md)
+  - [GetAuthorization Decorator](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorator_uses.md#getauthorization-decorator)
 
-## Installation
+## Conclusion
 
-```bash
-$ yarn install
-```
-
-## Running the app
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+These instructions will help you start, configure, test, and use the nestjs-hasura-module project.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+NestJS Plugin Module is [MIT licensed](LICENSE).
