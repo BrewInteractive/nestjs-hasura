@@ -118,7 +118,7 @@ describe('HasuraService', () => {
     });
   });
 
-  it('should throw error if there is no admin secret ', async () => {
+  it('Admin requests should contain admin secret information.', async () => {
     Reflect.set(hasuraService, '_adminSecret', undefined);
     const query = gql`
       query testQuery {
