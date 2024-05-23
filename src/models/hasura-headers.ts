@@ -1,4 +1,4 @@
 export const HasuraHeaders: Record<string, string> = {
-  authorization: 'authorization',
+  authorizationToken: 'authorization',
   role: 'x-hasura-role',
 };

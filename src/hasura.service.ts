@@ -1,11 +1,11 @@
-import { GraphQLClient, Variables } from 'graphql-request';
 import {
+  AuthorizationOptions,
   HasuraConfig,
   HasuraHeaders,
   HasuraRequest,
-  RunQueryFlags,
-  RunQueryOptions,
+  RequestFlags,
 } from './models';
+import { GraphQLClient, Variables } from 'graphql-request';
 
 import { Injectable } from '@nestjs/common';
 
@@ -24,9 +24,9 @@ export class HasuraService {
   ): Promise<T> {
     const headers = {
       ...(hasuraRequest?.headers || {}),
-      ...this.createHeadersByRunQueryFlags(hasuraRequest?.runQueryFlag),
-      ...this.createHeadersByRunQueryOptions(
-        hasuraRequest?.runQueryOptions || {},
+      ...this.createHeadersByRunQueryFlags(hasuraRequest?.requestFlags),
+      ...this.createHeadersByAuthorizationOptions(
+        hasuraRequest?.authorizationOptions || {},
       ),
     };
 
@@ -43,18 +43,18 @@ export class HasuraService {
     throw new Error('Missing admin secret.');
   }
 
-  private createHeadersByRunQueryFlags(flags: RunQueryFlags) {
+  private createHeadersByRunQueryFlags(flags: RequestFlags) {
     const headers = {};
-    if ((RunQueryFlags.UseAdminSecret | flags) == flags)
+    if ((RequestFlags.UseAdminSecret | flags) == flags)
       headers['x-hasura-admin-secret'] = this.getAdminSecret();
 
-    if ((RunQueryFlags.UseAdminSecret | flags) == flags)
+    if ((RequestFlags.UseAdminSecret | flags) == flags)
       headers['x-hasura-use-backend-only-permissions'] = true;
 
     return headers;
   }
 
-  private createHeadersByRunQueryOptions(options: RunQueryOptions) {
+  private createHeadersByAuthorizationOptions(options: AuthorizationOptions) {
     return Object.entries(options).reduce((acc, [key, value]) => {
       const headerKey = HasuraHeaders[key];
       if (headerKey) acc[headerKey] = value;
