@@ -1,6 +1,7 @@
 import { GraphQLClient, Variables } from 'graphql-request';
 import {
   HasuraConfig,
+  HasuraHeaders,
   HasuraRequest,
   RunQueryFlags,
   RunQueryOptions,
@@ -10,12 +11,12 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class HasuraService {
-  private readonly _graphQLClient: GraphQLClient;
-  private readonly _adminSecret?: string;
+  private readonly graphQLClient: GraphQLClient;
+  private readonly adminSecret?: string;
 
   constructor(private readonly hasuraConfig: HasuraConfig) {
-    this._graphQLClient = new GraphQLClient(this.hasuraConfig.graphqlEndpoint);
-    this._adminSecret = this.hasuraConfig?.adminSecret;
+    this.graphQLClient = new GraphQLClient(this.hasuraConfig.graphqlEndpoint);
+    this.adminSecret = this.hasuraConfig?.adminSecret;
   }
 
   requestAsync<T, V extends Variables = Variables>(
@@ -29,7 +30,7 @@ export class HasuraService {
       ),
     };
 
-    return this._graphQLClient.request<T>(
+    return this.graphQLClient.request<T>(
       hasuraRequest.query,
       hasuraRequest.variables,
       headers,
@@ -37,9 +38,9 @@ export class HasuraService {
   }
 
   private getAdminSecret(): string {
-    if (this._adminSecret) return this._adminSecret;
+    if (this.adminSecret) return this.adminSecret;
 
-    throw new Error('There is no admin secret information.');
+    throw new Error('Missing admin secret.');
   }
 
   private createHeadersByRunQueryFlags(flags: RunQueryFlags) {
@@ -53,14 +54,9 @@ export class HasuraService {
     return headers;
   }
 
-  private readonly hasuraEquivalentsForRequestOption: Record<string, string> = {
-    authorization: 'authorization',
-    role: 'x-hasura-role',
-  };
-
   private createHeadersByRunQueryOptions(options: RunQueryOptions) {
     return Object.entries(options).reduce((acc, [key, value]) => {
-      const headerKey = this.hasuraEquivalentsForRequestOption[key];
+      const headerKey = HasuraHeaders[key];
       if (headerKey) acc[headerKey] = value;
       return acc;
     }, {});
