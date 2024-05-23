@@ -1,10 +1,10 @@
-import { RunQueryFlags } from './run-query-flags';
-import { RunQueryOptions } from './run-query-options';
+import { AuthorizationOptions } from './authorization-options';
+import { RequestFlags } from './request-flags';
 
 export class HasuraRequest<V = unknown> {
   query: string;
   variables?: V;
   headers?: Record<string, string>;
-  runQueryFlag?: RunQueryFlags;
-  runQueryOptions?: RunQueryOptions;
+  requestFlags?: RequestFlags;
+  authorizationOptions?: AuthorizationOptions;
 }

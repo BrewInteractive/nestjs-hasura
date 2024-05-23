@@ -7,7 +7,7 @@ import { Test } from '@nestjs/testing';
 describe('HasuraModule', () => {
   const hasuraConfig = MockFactory(HasuraConfigFixture).one();
 
-  it('Should be defined (With register method)', async () => {
+  it('should be defined (with register method)', async () => {
     const module = await Test.createTestingModule({
       imports: [HasuraModule.register(hasuraConfig)],
     }).compile();
@@ -16,7 +16,7 @@ describe('HasuraModule', () => {
     expect(service).toBeDefined();
   });
 
-  it('Should be defined (With registerAsync method)', async () => {
+  it('should be defined (with registerAsync method)', async () => {
     const module = await Test.createTestingModule({
       imports: [
         HasuraModule.registerAsync({
@@ -32,7 +32,7 @@ describe('HasuraModule', () => {
     expect(service).toBeDefined();
   });
 
-  it('Should be defined (With forRoot method)', async () => {
+  it('should be defined (With forRoot method)', async () => {
     const module = await Test.createTestingModule({
       imports: [HasuraModule.forRoot(hasuraConfig)],
     }).compile();
@@ -41,7 +41,7 @@ describe('HasuraModule', () => {
     expect(service).toBeDefined();
   });
 
-  it('Should be defined (With forRootAsync method)', async () => {
+  it('should be defined (with forRootAsync method)', async () => {
     const module = await Test.createTestingModule({
       imports: [
         HasuraModule.forRootAsync({

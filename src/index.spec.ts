@@ -1,11 +1,11 @@
 import { HasuraModule, HasuraService } from './index';
 
 describe('HasuraTest', () => {
-  it('Should export HasuraModule', () => {
+  it('should export HasuraModule', () => {
     expect(HasuraModule).toBeDefined();
   });
 
-  it('Should export HasuraService', () => {
+  it('should export HasuraService', () => {
     expect(HasuraService).toBeDefined();
   });
 });
