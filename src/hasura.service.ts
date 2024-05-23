@@ -1,9 +1,9 @@
 import { GraphQLClient, Variables } from 'graphql-request';
 import {
   HasuraConfig,
-  HasuraOptions,
-  HasuraOptionsFlags,
-  HasuraRequestOptions,
+  HasuraRequest,
+  RunQueryFlags,
+  RunQueryOptions,
 } from './models';
 
 import { Injectable } from '@nestjs/common';
@@ -19,49 +19,21 @@ export class HasuraService {
   }
 
   requestAsync<T, V extends Variables = Variables>(
-    hasuraRequestOptions: HasuraRequestOptions<V>,
+    hasuraRequest: HasuraRequest<V>,
   ): Promise<T> {
     const headers = {
-      ...(hasuraRequestOptions?.headers || {}),
-      ...this.createOptionsRequestHeaders(hasuraRequestOptions?.options),
+      ...(hasuraRequest?.headers || {}),
+      ...this.createHeadersByRunQueryFlags(hasuraRequest?.runQueryFlag),
+      ...this.createHeadersByRunQueryOptions(
+        hasuraRequest?.runQueryOptions || {},
+      ),
     };
 
     return this._graphQLClient.request<T>(
-      hasuraRequestOptions.query,
-      hasuraRequestOptions.variables,
+      hasuraRequest.query,
+      hasuraRequest.variables,
       headers,
     );
-  }
-
-  private hasuraOptionsToFlags(hasuraOptions: HasuraOptions) {
-    return Object.keys(hasuraOptions).reduce((acc, option) => {
-      acc |= HasuraOptionsFlags[option];
-      return acc;
-    }, 0);
-  }
-
-  private readonly hasuraEquivalentsForHasuraOption: Record<
-    HasuraOptionsFlags,
-    string
-  > = {
-    [HasuraOptionsFlags.authorization]: 'authorization',
-    [HasuraOptionsFlags.useBackendOnlyPermissions]:
-      'x-hasura-use-backend-only-permissions',
-    [HasuraOptionsFlags.role]: 'x-hasura-role',
-    [HasuraOptionsFlags.useAdminSecret]: 'x-hasura-admin-secret',
-  };
-
-  private getHasuraOptionsFlags() {
-    return Object.values(HasuraOptionsFlags).filter(
-      (value) => !isNaN(Number(value)),
-    ) as Array<HasuraOptionsFlags>;
-  }
-
-  private isOptionFlagSet(
-    optionFlag: HasuraOptionsFlags,
-    optionsFlagValue: number,
-  ): boolean {
-    return (optionFlag | optionsFlagValue) == optionsFlagValue;
   }
 
   private getAdminSecret(): string {
@@ -70,22 +42,26 @@ export class HasuraService {
     throw new Error('There is no admin secret information.');
   }
 
-  private getOptionsValueByFlag(
-    flag: HasuraOptionsFlags,
-    hasuraOptions: HasuraOptions,
-  ) {
-    if (flag == HasuraOptionsFlags.useAdminSecret) return this.getAdminSecret();
-    else return hasuraOptions[HasuraOptionsFlags[flag]];
+  private createHeadersByRunQueryFlags(flags: RunQueryFlags) {
+    const headers = {};
+    if ((RunQueryFlags.UseAdminSecret | flags) == flags)
+      headers['x-hasura-admin-secret'] = this.getAdminSecret();
+
+    if ((RunQueryFlags.UseAdminSecret | flags) == flags)
+      headers['x-hasura-use-backend-only-permissions'] = true;
+
+    return headers;
   }
 
-  private createOptionsRequestHeaders(hasuraOptions: HasuraOptions = {}) {
-    const optionsFlagValue = this.hasuraOptionsToFlags(hasuraOptions);
+  private readonly hasuraEquivalentsForRequestOption: Record<string, string> = {
+    authorization: 'authorization',
+    role: 'x-hasura-role',
+  };
 
-    return this.getHasuraOptionsFlags().reduce((acc, optionFlag) => {
-      if (this.isOptionFlagSet(optionFlag, optionsFlagValue))
-        acc[this.hasuraEquivalentsForHasuraOption[optionFlag]] =
-          this.getOptionsValueByFlag(optionFlag, hasuraOptions);
-
+  private createHeadersByRunQueryOptions(options: RunQueryOptions) {
+    return Object.entries(options).reduce((acc, [key, value]) => {
+      const headerKey = this.hasuraEquivalentsForRequestOption[key];
+      if (headerKey) acc[headerKey] = value;
       return acc;
     }, {});
   }
