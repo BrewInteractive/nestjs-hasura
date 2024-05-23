@@ -136,7 +136,7 @@ describe('HasuraService', () => {
   });
 
   it('should throw error if UseAdminSecret flag is set without setting admin secret in config.', async () => {
-    Reflect.set(hasuraService, '_adminSecret', undefined);
+    Reflect.set(hasuraService, 'adminSecret', undefined);
     const query = gql`
       query testQuery {
         books {
