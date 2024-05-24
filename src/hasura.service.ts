@@ -58,7 +58,8 @@ export class HasuraService {
   private createHeadersByAuthorizationOptions(options: AuthorizationOptions) {
     return Object.entries(options).reduce((acc, [key, value]) => {
       const headerKey = HasuraHeaders[key];
-      if (headerKey) acc[headerKey] = value;
+      if (headerKey === 'authorization') acc[headerKey] = `Bearer ${value}`;
+      else if (headerKey) acc[headerKey] = value;
       return acc;
     }, {});
   }
