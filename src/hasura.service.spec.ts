@@ -1,10 +1,10 @@
+import { AuthorizationOptions, HasuraConfig, RequestFlags } from './models';
 import { Faker, MockFactory } from 'mockingbird';
-import { HasuraConfig, HasuraOptions } from './models';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AdminSecretNotFound } from './error';
 import { HasuraConfigFixture } from '../test/fixtures';
 import { HasuraService } from './hasura.service';
+import { MissingAdminSecret } from './error';
 import { gql } from 'graphql-request';
 
 const graphqlClientSpy = jest.fn();
@@ -82,10 +82,7 @@ describe('HasuraService', () => {
     expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {});
   });
 
-  it('should run the query with the variables.', async () => {
-    const variables = {
-      id: Faker.datatype.number(),
-    };
+  it('should run the query with the runQueryFlag.', async () => {
     const query = gql`
       query testQuery($id: Int!) {
         books_by_id(id: $id) {
@@ -93,11 +90,35 @@ describe('HasuraService', () => {
         }
       }
     `;
-    const hasuraOptions: HasuraOptions = {
+    const requestFlags: RequestFlags = RequestFlags.UseBackendOnlyPermissions;
+
+    const expectedResult = { id: Faker.datatype.number() };
+    graphqlClientSpy.mockResolvedValue(expectedResult);
+
+    const actualResult = await hasuraService.requestAsync({
+      query,
+      requestFlags,
+    });
+
+    expect(actualResult).toBe(expectedResult);
+    expect(graphqlClientSpy).toHaveBeenCalledWith(query, undefined, {
+      'x-hasura-use-backend-only-permissions': true,
+      'x-hasura-admin-secret': hasuraConfig.adminSecret,
+    });
+  });
+
+  it('should run the query with the runQueryOptions.', async () => {
+    const query = gql`
+      query testQuery($id: Int!) {
+        books_by_id(id: $id) {
+          id
+        }
+      }
+    `;
+
+    const authorizationOptions: AuthorizationOptions = {
       role: Faker.datatype.string(),
-      authorization: Faker.datatype.string(),
-      useBackendOnlyPermissions: true,
-      useAdminSecret: true,
+      authorizationToken: Faker.datatype.string(),
     };
 
     const expectedResult = { id: Faker.datatype.number() };
@@ -105,22 +126,18 @@ describe('HasuraService', () => {
 
     const actualResult = await hasuraService.requestAsync({
       query,
-      variables,
-      options: hasuraOptions,
+      authorizationOptions,
     });
 
     expect(actualResult).toBe(expectedResult);
-    expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {
-      'x-hasura-role': hasuraOptions.role,
-      authorization: hasuraOptions.authorization,
-      'x-hasura-use-backend-only-permissions':
-        hasuraOptions.useBackendOnlyPermissions,
-      'x-hasura-admin-secret': hasuraConfig.adminSecret,
+    expect(graphqlClientSpy).toHaveBeenCalledWith(query, undefined, {
+      'x-hasura-role': authorizationOptions.role,
+      authorization: authorizationOptions.authorizationToken,
     });
   });
 
-  it('should throw error if there is no admin secret ', async () => {
-    Reflect.set(hasuraService, '_adminSecret', undefined);
+  it('should throw error if UseAdminSecret flag is set without setting admin secret in config.', async () => {
+    Reflect.set(hasuraService, 'adminSecret', undefined);
     const query = gql`
       query testQuery {
         books {
@@ -128,13 +145,14 @@ describe('HasuraService', () => {
         }
       }
     `;
+
+    const requestFlags: RequestFlags = RequestFlags.UseAdminSecret;
+
     expect(async () => {
       await hasuraService.requestAsync({
         query,
-        options: {
-          useAdminSecret: true,
-        },
+        requestFlags,
       });
-    }).rejects.toThrow(AdminSecretNotFound);
+    }).rejects.toThrow(MissingAdminSecret);
   });
 });

@@ -1,2 +1,2 @@
-export * from './admin-secret-not-found';
-export * from './hasura-error-base';
+export * from './missing-admin-secret.error';
+export * from './hasura-error-base.error';
