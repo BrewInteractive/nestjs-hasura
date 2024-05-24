@@ -72,7 +72,7 @@ export class BookService {
 | Option Name               | Description                                                                         | Is Required ? |
 |---------------------------|-------------------------------------------------------------------------------------|---------------|
 | role                      | Pass the `x-hasura-role` parameter to the header during the Hasura request.         | No            |
-| authorization             | Pass the `Authorization` parameter to the header during the Hasura request.         | No            |
+| authorizationToken             | Pass the `Authorization` parameter to the header during the Hasura request.         | No            |
 
 ```ts
 import { Injectable } from '@nestjs/common';
@@ -96,7 +96,7 @@ export class BookService {
     const variables = { id: bookId };
     const authorizationOptions: HasuraOptions = {
       role: 'admin',
-      authorization: 'Bearer my-token'
+      authorizationToken: 'my-token'
     };
 
     const result = await this.hasuraService.requestAsync({ query, variables, authorizationOptions });
