@@ -2,9 +2,9 @@ import { AuthorizationOptions, HasuraConfig, RequestFlags } from './models';
 import { Faker, MockFactory } from 'mockingbird';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { AdminSecretNotFound } from './error';
 import { HasuraConfigFixture } from '../test/fixtures';
 import { HasuraService } from './hasura.service';
+import { MissingAdminSecret } from './error';
 import { gql } from 'graphql-request';
 
 const graphqlClientSpy = jest.fn();
@@ -153,6 +153,6 @@ describe('HasuraService', () => {
         query,
         requestFlags,
       });
-    }).rejects.toThrow(AdminSecretNotFound);
+    }).rejects.toThrow(MissingAdminSecret);
   });
 });
