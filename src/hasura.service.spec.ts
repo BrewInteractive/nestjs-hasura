@@ -4,6 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { HasuraConfigFixture } from '../test/fixtures';
 import { HasuraService } from './hasura.service';
+import { MissingAdminSecret } from './error';
 import { gql } from 'graphql-request';
 
 const graphqlClientSpy = jest.fn();
@@ -152,6 +153,6 @@ describe('HasuraService', () => {
         query,
         requestFlags,
       });
-    }).rejects.toThrow(Error);
+    }).rejects.toThrow(MissingAdminSecret);
   });
 });
