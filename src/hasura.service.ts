@@ -7,8 +7,8 @@ import {
 } from './models';
 import { GraphQLClient, Variables } from 'graphql-request';
 
-import { AdminSecretNotFound } from './error';
 import { Injectable } from '@nestjs/common';
+import { MissingAdminSecret } from './error';
 
 @Injectable()
 export class HasuraService {
@@ -41,7 +41,7 @@ export class HasuraService {
   private getAdminSecret(): string {
     if (this.adminSecret) return this.adminSecret;
 
-    throw new AdminSecretNotFound();
+    throw new MissingAdminSecret();
   }
 
   private createHeadersByRunQueryFlags(flags: RequestFlags) {
