@@ -30,10 +30,11 @@ This package is developed to be used in NestJS projects. The purpose of the modu
   - [Query&Mutation Request](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#querymutation-request)
     - [Basic Usage](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#basic-usage)
     - [Running Queries with Variables](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-variables)
-    - [Running Queries with Hasura Options](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-hasura-options)
+    - [Running Queries with Authorization Options](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-authorization-options)
     - [Running Queries with Headers](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-headers)
+    - [Running Queries with Request Flags](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-request-flags)
 - [Decorator Uses](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorator_uses.md)
-  - [GetAuthorization Decorator](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorator_uses.md#authorizationtoken-decorator)
+  - [AuthorizationHeader Decorator](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorator_uses.md#authorizationheader-decorator)
 
 ## Conclusion
 
