@@ -20,7 +20,7 @@ $ cd nestjs-hasura-module
 To install the required dependencies in the project directory:
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Test
@@ -28,13 +28,13 @@ There are unit tests for the project. To run the tests:
 
 ```bash
 # To run tests in monitoring mode:
-$ npm test
+$ yarn test
 
 # To run tests in monitoring mode:
-$ npm run test:watch
+$ yarn run test:watch
 
 # To generate a test coverage report:
-$ npm run test:cov
+$ yarn run test:cov
 ```
 
 ## Build
@@ -42,5 +42,5 @@ $ npm run test:cov
 You can use the following command to compile the project.
 
 ```bash
-$ npm run build
+$ yarn build
 ```
