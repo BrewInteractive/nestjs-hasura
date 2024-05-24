@@ -1,1 +1,1 @@
-export * from './get-authorization.decorator';
+export * from './authorization-token.decorator';

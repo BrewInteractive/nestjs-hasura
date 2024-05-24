@@ -1,9 +1,9 @@
-import { GetAuthorization } from './get-authorization.decorator';
+import { AuthorizationToken } from './authorization-token.decorator';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 
 function getParamDecoratorFactory() {
   class TestDecorator {
-    public getDecoratorValue(@GetAuthorization() value) {
+    public getDecoratorValue(@AuthorizationToken() value) {
       console.log(value);
     }
   }
@@ -16,7 +16,7 @@ function getParamDecoratorFactory() {
   return args[Object.keys(args)[0]].factory;
 }
 
-describe('GetAuthorization', () => {
+describe('AuthorizationToken Decorator', () => {
   it('should return the authorization header', () => {
     const mockRequest = {
       headers: {
