@@ -132,7 +132,7 @@ describe('HasuraService', () => {
     expect(actualResult).toBe(expectedResult);
     expect(graphqlClientSpy).toHaveBeenCalledWith(query, undefined, {
       'x-hasura-role': authorizationOptions.role,
-      authorization: authorizationOptions.authorizationToken,
+      authorization: `Bearer ${authorizationOptions.authorizationToken}`,
     });
   });
 

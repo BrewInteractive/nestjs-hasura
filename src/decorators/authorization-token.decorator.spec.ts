@@ -1,9 +1,10 @@
-import { GetAuthorization } from './get-authorization.decorator';
+import { Faker } from 'mockingbird';
+import { AuthorizationToken } from './authorization-token.decorator';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 
 function getParamDecoratorFactory() {
   class TestDecorator {
-    public getDecoratorValue(@GetAuthorization() value) {
+    public getDecoratorValue(@AuthorizationToken() value) {
       console.log(value);
     }
   }
@@ -16,11 +17,12 @@ function getParamDecoratorFactory() {
   return args[Object.keys(args)[0]].factory;
 }
 
-describe('GetAuthorization', () => {
+describe('AuthorizationToken Decorator', () => {
   it('should return the authorization header', () => {
+    const token = Faker.datatype.string();
     const mockRequest = {
       headers: {
-        authorization: 'Bearer mockToken',
+        authorization: `Bearer ${token}`,
       },
     };
 
@@ -33,7 +35,26 @@ describe('GetAuthorization', () => {
     const factory = getParamDecoratorFactory();
     const authorization = factory('authorization', mockContext);
 
-    expect(authorization).toBe(mockRequest.headers.authorization);
+    expect(authorization).toBe(token);
+  });
+
+  it('should return undefined if the token type is not bearer ', () => {
+    const mockRequest = {
+      headers: {
+        authorization: 'test mockToken',
+      },
+    };
+
+    const mockContext = {
+      switchToHttp: jest.fn().mockReturnValue({
+        getRequest: jest.fn().mockReturnValue(mockRequest),
+      }),
+    };
+
+    const factory = getParamDecoratorFactory();
+    const authorization = factory('authorization', mockContext);
+
+    expect(authorization).toBeUndefined();
   });
 
   it('should return undefined if no authorization header is present', () => {
