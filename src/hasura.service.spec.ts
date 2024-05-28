@@ -82,7 +82,7 @@ describe('HasuraService', () => {
     expect(graphqlClientSpy).toHaveBeenCalledWith(query, variables, {});
   });
 
-  it('should run the query with the runQueryFlag.', async () => {
+  it('should run the query with the requestFlags.', async () => {
     const query = gql`
       query testQuery($id: Int!) {
         books_by_id(id: $id) {
@@ -107,7 +107,7 @@ describe('HasuraService', () => {
     });
   });
 
-  it('should run the query with the runQueryOptions.', async () => {
+  it('should run the query with the authorization options.', async () => {
     const query = gql`
       query testQuery($id: Int!) {
         books_by_id(id: $id) {
