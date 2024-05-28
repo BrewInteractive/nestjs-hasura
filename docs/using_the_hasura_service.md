@@ -2,18 +2,18 @@
 
 To use the HasuraService, inject it where needed.
 
-## Query&Mutation Request
+## Query & Mutation Request
 
-| Parameter Name       | Description                                                                          | Is Required ? |
-|----------------------|--------------------------------------------------------------------------------------|---------------|
-| query                | Represents the query or mutation you will send.                                      | Yes           |
-| variables            | You can send the variables in the query or mutation with this parameter.             | No            |
-| headers              | You can use this parameter if you want to pass custom header during Hasura request.  | No            |
-| authorizationOptions | You can pass authorization parameters here.                                          | No            |
-| requestFlags         | You can define Hasura properties using [RequestFlags](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/src/models/request-flags.ts).   | No            |
-
+| Parameter Name       | Description                                                                                                                                           | Is Required ? |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| query                | Represents the query or mutation you will send.                                                                                                       | Yes           |
+| variables            | You can send the variables in the query or mutation with this parameter.                                                                              | No            |
+| headers              | You can use this parameter if you want to pass custom header during Hasura request.                                                                   | No            |
+| authorizationOptions | You can pass authorization parameters here.                                                                                                           | No            |
+| requestFlags         | You can define Hasura properties using [RequestFlags](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/src/models/request-flags.ts). | No            |
 
 ### Basic Usage
+
 ```ts
 import { Injectable } from '@nestjs/common';
 import { HasuraService } from '@brewww/nestjs-hasura-module';
@@ -69,10 +69,10 @@ export class BookService {
 
 ### Running Queries with Authorization Options
 
-| Option Name               | Description                                                                         | Is Required ? |
-|---------------------------|-------------------------------------------------------------------------------------|---------------|
-| role                      | Pass the `x-hasura-role` parameter to the header during the Hasura request.         | No            |
-| authorizationToken             | Pass the `Authorization` parameter to the header during the Hasura request.         | No            |
+| Option Name        | Description                                                                 | Is Required ? |
+| ------------------ | --------------------------------------------------------------------------- | ------------- |
+| role               | Pass the `x-hasura-role` parameter to the header during the Hasura request. | No            |
+| authorizationToken | Pass the `Authorization` parameter to the header during the Hasura request. | No            |
 
 ```ts
 import { Injectable } from '@nestjs/common';
@@ -96,14 +96,17 @@ export class BookService {
     const variables = { id: bookId };
     const authorizationOptions: HasuraOptions = {
       role: 'admin',
-      authorizationToken: 'my-token'
+      authorizationToken: 'my-token',
     };
 
-    const result = await this.hasuraService.requestAsync({ query, variables, authorizationOptions });
+    const result = await this.hasuraService.requestAsync({
+      query,
+      variables,
+      authorizationOptions,
+    });
     return result;
   }
 }
-
 ```
 
 ### Running Queries with Headers
@@ -128,8 +131,12 @@ export class BookService {
     `;
 
     const variables = { id: bookId };
-    const headers = { 'x-hasura-role': 'admin' }
-    const result = await this.hasuraService.requestAsync({ query, variables, headers });
+    const headers = { 'x-hasura-role': 'admin' };
+    const result = await this.hasuraService.requestAsync({
+      query,
+      variables,
+      headers,
+    });
     return result;
   }
 }
@@ -158,7 +165,11 @@ export class BookService {
 
     const variables = { id: bookId };
     const requestFlags = RequestFlags.UseAdminSecret;
-    const result = await this.hasuraService.requestAsync({ query, variables, requestFlags });
+    const result = await this.hasuraService.requestAsync({
+      query,
+      variables,
+      requestFlags,
+    });
     return result;
   }
 }

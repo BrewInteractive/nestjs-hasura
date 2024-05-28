@@ -16,8 +16,8 @@ yarn add @brewww/nestjs-hasura-module
 
 HasuraModule can be configured via the `register`, `registerAsync`, `forRoot`, and `forRootAsync` methods. These methods determine how the module is configured and how Hasura services are initialized.
 
-
 #### `register` and `registerAsync`
+
 The `register` and `registerAsync` method configures the module by synchronously receiving a configuration object.
 
 ```ts
@@ -83,5 +83,3 @@ import { ConfigService } from '@nestjs/config';
 })
 export class AppModule {}
 ```
-
-
