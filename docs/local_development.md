@@ -7,11 +7,11 @@ Since the project is a project developed specifically for Hasura, care should be
 - Node.js (>= 21.x)
 - npm (>= 10.x)
 
-## Installation
+## Usage
 
-### Clone Project
+### Cloning The Repository
 
-First, clone the project to your local environment:
+First, clone the repository to your local environment:
 
 ```bash
 $ git clone https://github.com/BrewInteractive/nestjs-hasura-module.git
@@ -26,7 +26,7 @@ To install the required dependencies in the project directory:
 $ yarn install
 ```
 
-## Test
+## Running Tests
 
 There are unit tests for the project. To run the tests:
 
@@ -41,7 +41,7 @@ $ yarn run test:watch
 $ yarn run test:cov
 ```
 
-## Build
+## Building
 
 You can use the following command to compile the project.
 
