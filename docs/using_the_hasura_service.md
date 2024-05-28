@@ -94,7 +94,7 @@ export class BookService {
     `;
 
     const variables = { id: bookId };
-    const authorizationOptions: HasuraOptions = {
+    const authorizationOptions: AuthorizationOptions = {
       role: 'admin',
       authorizationToken: 'my-token',
     };
@@ -109,7 +109,7 @@ export class BookService {
 }
 ```
 
-### Running Queries with Headers
+### Running Queries with Custom Headers
 
 ```ts
 import { Injectable } from '@nestjs/common';
