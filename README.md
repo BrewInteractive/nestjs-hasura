@@ -33,7 +33,7 @@ This package is developed to be used in NestJS projects. The purpose of the modu
     - [Running Queries with Authorization Options](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-authorization-options)
     - [Running Queries with Headers](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-headers)
     - [Running Queries with Request Flags](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/using_the_hasura_service.md#running-queries-with-request-flags)
-- [Decorator Uses](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorator_uses.md)
+- [Decorators](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorators.md)
   - [AuthorizationToken Decorator](https://github.com/BrewInteractive/nestjs-hasura-module/blob/main/docs/decorator_uses.md#authorizationtoken-decorator)
 
 ## Conclusion
