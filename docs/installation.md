@@ -18,7 +18,7 @@ HasuraModule can be configured via the `register`, `registerAsync`, `forRoot`, a
 
 #### `register` and `registerAsync`
 
-The `register` and `registerAsync` method configures the module by synchronously receiving a configuration object.
+The Hasura module, with its `register` and `registerAsync` methods, operates within the services, controllers, and other classes at the same level as the module it is imported into. However, services, controllers, and other classes in submodules do not utilize the features of the Hasura module.
 
 ```ts
 import { HasuraModule } from '@brewww/nestjs-hasura-module';
@@ -52,7 +52,7 @@ export class UserModule {}
 
 #### `forRoot` and `forRootAsync`
 
-The `forRoot` and `forRootAsync` methods are used for root module configuration and are typically called in the root module of the application.
+The Hasura module, with its `forRoot` and `forRootAsync` methods, works at both the module level it is imported into and in submodules. By configuring one of the forRoot methods in `app.module.ts`, the Hasura module can be utilized across all classes in the project.
 
 ```ts
 import { HasuraModule } from '@brewww/nestjs-hasura-module';
