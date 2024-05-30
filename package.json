@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-hasura-module",
+  "name": "@brewww/nestjs-hasura-module",
   "version": "1.1.0",
   "private": false,
   "description": "",
