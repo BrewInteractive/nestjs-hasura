@@ -15,8 +15,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "release": "standard-version"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "peerDependencies": {
     "@nestjs/common": "^10.0.0",
@@ -85,8 +84,7 @@
   },
   "homepage": "https://github.com/BrewInteractive/nestjs-hasura#readme-module",
   "dependencies": {
-    "graphql-request": "^6.1.0",
-    "standard-version": "^9.5.0"
+    "graphql-request": "^6.1.0"
   },
   "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }
