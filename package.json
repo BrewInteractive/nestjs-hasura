@@ -7,6 +7,10 @@
   "license": "UNLICENSED",
   "readmeFilename": "README.md",
   "main": "dist/index.js",
+  "files": [
+    "dist",
+    "packages.json"
+  ],
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
