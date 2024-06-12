@@ -25,15 +25,31 @@ import { HasuraModule } from '@brewww/nestjs-hasura-module';
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     HasuraModule.register({
       graphqlEndpoint: 'http://localhost:8080/v1/graphql',
       adminSecret: 'Admin Secret',
-    }),
-    // or
+    })
+  ],
+  providers: [UserService],
+  controllers: [UserController],
+})
+export class UserModule {}
+```
+
+The `register` method takes package configurations directly as parameters, while the `registerAsync` method allows you to fetch data from services like `ConfigService` and provide configurations dynamically through a method.
+
+```ts
+import { HasuraModule } from '@brewww/nestjs-hasura-module';
+import { Module } from '@nestjs/common';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
+import { ConfigService } from '@nestjs/config';
+
+@Module({
+  imports: [
     HasuraModule.registerAsync({
       useFactory: (configService: ConfigService) => {
         return {
@@ -42,7 +58,7 @@ import { ConfigService } from '@nestjs/config';
         };
       },
       inject: [ConfigService],
-    }),
+    })
   ],
   providers: [UserService],
   controllers: [UserController],
@@ -59,15 +75,31 @@ import { HasuraModule } from '@brewww/nestjs-hasura-module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     HasuraModule.forRoot({
       graphqlEndpoint: 'http://localhost:8080/v1/graphql',
       adminSecret: 'Admin Secret',
-    }),
-    // or
+    })
+  ],
+  providers: [AppService],
+  controllers: [AppController],
+})
+export class AppModule {}
+```
+
+The `forRoot` method takes package configurations directly as parameters, while the `forRootAsync` method allows you to fetch data from services like `ConfigService` and provide configurations dynamically through a method.
+
+```ts
+import { HasuraModule } from '@brewww/nestjs-hasura-module';
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigService } from '@nestjs/config';
+
+@Module({
+  imports: [
     HasuraModule.forRootAsync({
       useFactory: (configService: ConfigService) => {
         return {
