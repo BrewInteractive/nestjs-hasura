@@ -1,5 +1,7 @@
 
 
+## [1.1.1](https://github.com/BrewInteractive/nestjs-hasura-module/compare/v1.1.0...v1.1.1) (2024-08-13)
+
 ## 1.1.0 (2024-05-30)
 
 
