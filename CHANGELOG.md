@@ -1,5 +1,12 @@
 
 
+## [1.2.0](https://github.com/BrewInteractive/nestjs-hasura-module/compare/v1.1.1...v1.2.0) (2024-09-03)
+
+
+### Features
+
+* create hasura admin secret decorator ([0abb93a](https://github.com/BrewInteractive/nestjs-hasura-module/commit/0abb93a9b6e20b244112d53089f40c03261f9060))
+
 ## [1.1.1](https://github.com/BrewInteractive/nestjs-hasura-module/compare/v1.1.0...v1.1.1) (2024-08-13)
 
 ## 1.1.0 (2024-05-30)
