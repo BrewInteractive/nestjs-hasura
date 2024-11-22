@@ -20,9 +20,7 @@ export class HasuraService {
     this.adminSecret = this.hasuraConfig?.adminSecret;
   }
 
-  requestAsync<T, V extends Variables = Variables>(
-    hasuraRequest: HasuraRequest<V>,
-  ): Promise<T> {
+  requestAsync<T, V = any>(hasuraRequest: HasuraRequest<V>): Promise<T> {
     const headers = {
       ...(hasuraRequest?.headers || {}),
       ...this.createHeadersByRunQueryFlags(hasuraRequest?.requestFlags),
@@ -33,7 +31,7 @@ export class HasuraService {
 
     return this.graphQLClient.request<T>(
       hasuraRequest.query,
-      hasuraRequest.variables,
+      hasuraRequest.variables as Variables,
       headers,
     );
   }
